@@ -65,6 +65,16 @@ VmallocChunk:  1037452 kB
 Linux version 2.6.21 (root@test) (gcc version 3.4.2) #136 Mon May 20 11:39:34 CST 2013
 ```
 
+### Mount jffs2 partition
+
+```
+mkdir mtdblock
+modprobe mtdram total_size=24576 erase_size=128
+modprobe mtdblock
+dd if=./mtblock-dumps/mtdblock5.img of=/dev/mtdblock0
+mount -t jffs2 /dev/mtdblock0 mtdblock
+```
+
 ### Dump scripts
 
 ```
