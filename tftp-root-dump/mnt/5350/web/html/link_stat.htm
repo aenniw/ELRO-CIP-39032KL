@@ -1,0 +1,24 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+</head>
+<script src="get_link_stat.cgi"></script>
+<script>
+    function body_onload() {
+        if (ret_is_set_wifi = 1) {
+            if (1 == ret_cur_adapter) {
+                alert(top.str_wifiError);
+            }
+            else if (2 == ret_cur_adapter) {
+                alert(top.str_wifiOK);
+            }
+        }
+
+        location = 'status.htm';
+    }
+</script> 
+<body onLoad="body_onload()">
+
+</body>
+</html>

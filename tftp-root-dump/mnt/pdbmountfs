@@ -1,0 +1,7 @@
+#mount -t nfs -o intr,nolock,rsize=1024,wsize=1024 192.168.1.137:/home/pdb/nfs/5350/ /mnt/nfs_pdb
+mount -t nfs -o intr,nolock,rsize=1024,wsize=1024 192.168.1.221:/lyol33_nfs /mnt/nfs/
+
+#cp /mnt/5350/mini_httpd.conf /etc/
+#cp /mnt/5350/resolv.conf /etc/
+#rm -f /mnt/5350/ipcamn
+#cp /mnt/nfs_pdb/ipcamn /mnt/5350/

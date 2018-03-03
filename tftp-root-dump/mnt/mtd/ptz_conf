@@ -1,0 +1,14 @@
+led_mode 0
+ptz_center_onstart 0
+ptz_auto_patrol_interval 0
+ptz_auto_patrol_type 0
+ptz_patrol_h_rounds 0
+ptz_patrol_v_rounds 0
+ptz_patrol_rate 5
+ptz_patrol_up_rate 5
+ptz_patrol_down_rate 5
+ptz_patrol_left_rate 5
+ptz_patrol_right_rate 5
+ptz_disable_preset 0
+ptz_preset_onstart 0
+baud 12

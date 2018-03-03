@@ -1,0 +1,378 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>sign in</title>
+<link href="sign.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<script language="javascript" src="public.js"></script>
+
+<!--
+<script src="get_status.cgi"></script>
+-->
+
+<script>
+if (top.alias == '')
+	top.alias = top.str_anonymous;
+parent.document.title = top.str_device + '(' + top.alias + ')';
+
+function download_activex() 
+{
+    var url = '';
+
+    if (location.port == '') 
+    {
+        url = "http://" + location.hostname;
+    }
+    else 
+    {
+        url = "http://" + location.hostname + ":" + location.port;
+    }
+
+    url += "/codebase/DvmMJCam.zip";
+
+    window.open(url);
+}
+
+function set_language(language)
+{
+	top.setcookie('language',language,720);
+	top.location.reload();
+}
+function get_language()
+{
+   var lang_ret=0;
+   
+   var tmp_lang=top.getcookie('language');
+   if(tmp_lang=='')
+   {
+      lang_ret=1;
+   }
+   else
+   {
+      if(tmp_lang=='german')
+      {
+        lang_ret=0;
+      }
+      else if(tmp_lang=='english')
+      {
+        lang_ret=1;
+      }
+      else if(tmp_lang=='spain')
+      {
+        lang_ret=2;
+      }
+      else if(tmp_lang=='french')
+      {
+        lang_ret=3;
+      }
+      else if(tmp_lang=='hungarian')
+      {
+        lang_ret=4;
+      }
+      else if(tmp_lang=='italy')
+      {
+        lang_ret=5;
+      }
+      else if(tmp_lang=='portuguese')
+      {
+        lang_ret=6;
+      }
+      else if(tmp_lang=='korean')
+      {
+        lang_ret=7;
+      }
+      else if(tmp_lang=='poland')
+      {
+        lang_ret=8;
+      }
+      else if(tmp_lang=='russisch')
+      {
+        lang_ret=9;
+      }
+      else if(tmp_lang=='arabia')
+      {
+        lang_ret=10;
+      }
+      else if(tmp_lang=='simple_chinese')
+      {
+        lang_ret=11;
+      }
+      else if(tmp_lang=='tc_chinese')
+      {
+        lang_ret=12;
+      }
+      else if(tmp_lang=='thai')
+      {
+        lang_ret=13;
+      }
+      else if(tmp_lang=='nederland')
+      {
+        lang_ret=14;
+      }
+    
+   }
+   
+   return lang_ret; 
+}
+function monitor()      //IE
+{
+	top.browser=0;
+	location='IPCameramon.htm';
+}
+function server_push()   //火狐
+{
+    top.browser=1;
+    location='IPCameralive.htm';
+}
+function mobile_push()   //手机
+{
+    top.browser=2;
+    location='IPCameramob.htm';
+}
+
+function signin_vlcpush() //IE.火狐都行
+{
+	top.browser=3;
+	location='VLC_IPCameralive.htm';
+}
+ 
+
+function setlanguage(value)
+{    
+    if(value==0) //德语
+    {   
+       window.location.href="javascript:set_language('german');";  
+    }
+    else if(value==1) //英语
+    {  
+        window.location.href="javascript:set_language('english');";
+    }
+    else if(value==2) //西班牙
+    {
+        window.location.href="javascript:set_language('spain');";
+    }
+    else if(value==3) //法语
+    {
+        window.location.href="javascript:set_language('french');";
+    }
+    else if(value==4) //匈牙利
+    {
+        window.location.href="javascript:set_language('hungarian');";
+    }
+    else if(value==5) //意大利
+    {
+        window.location.href="javascript:set_language('italy');";
+    }
+    else if(value==6) //葡萄牙
+    {
+        window.location.href="javascript:set_language('portuguese');";
+    }
+    else if(value==7) //韩语
+    {
+        window.location.href="javascript:set_language('korean');";
+    }
+    else if(value==8) //波兰
+    {
+        window.location.href="javascript:set_language('poland');";
+    }
+    else if(value==9) //俄语
+    {
+        window.location.href="javascript:set_language('russisch');";
+    }
+    else if(value==10) //阿拉伯
+    {
+        window.location.href="javascript:set_language('arabia');";
+    }
+    else if(value==11) //简体
+    {
+        window.location.href="javascript:set_language('simple_chinese');"; 
+    }
+    else if(value==12) //繁体
+    {
+        window.location.href="javascript:set_language('tc_chinese');"; 
+    }
+    else if(value==13) //泰文
+    {
+        window.location.href="javascript:set_language('thai');"; 
+    }
+    else if(value==14) //荷兰
+    {
+        window.location.href="javascript:set_language('nederland');"; 
+    }
+
+}
+
+
+function body_onload()
+{
+    var lang_type=get_language();
+    document.getElementById("select_Language").value=lang_type;
+}
+
+</script>
+</head>
+<body onload="body_onload()">
+<table width="0" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="590" height="100">&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td><table width="589" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#e4f7db" class="t1">
+      <tr>
+        <td height="22" colspan="4">
+            <div class="line" id="line"><strong class="mid04"><script>document.write(top.str_language);</script></strong>
+                <select id="select_Language" onchange="setlanguage(value)" >
+                    <option value="0">Deutsch</option>
+                    <option value="1">English</option>
+                    <option value="2">España</option>
+                    <option value="3">Française</option>
+                    <option value="4">Magyar</option>
+                    <option value="5">Italiano</option>
+                    <option value="6">Portugal</option>
+                    <option value="8">Polski</option>
+                    <option value="9">Pyccknn</option>
+                    <option value="10">جزيره العرب</option>
+                    <option value="7">한국어</option>
+                    <option value="13">ภาษาไทย</option>
+                    <option value="11">简体中文</option>
+                    <option value="12">繁体中文</option>
+                    <option value="14">Nederland</option>
+                </select>
+            </div>
+        </td>
+      </tr>
+      
+      <tr>
+        <td height="28">&nbsp;</td>
+      </tr>
+      
+      <tr>
+        <td height="28" colspan="2" class="f1"><script>document.write(top.str_mode_activex);</script></td>
+      </tr>
+      
+      <tr>
+        <td height="10">&nbsp;</td>
+      </tr>
+      
+      <tr>
+        <td height="5" colspan="2" class="f1">
+          <a id="monitor_link" href="javascript:monitor();" class="f18"><script>document.write(top.str_signin);</script></a>&nbsp;&nbsp;
+          <a id="load_link" href="#" onclick="javascript:download_activex()" class="f18"><script>document.write(top.str_load_ocx);</script></a>
+        </td>
+      </tr>
+      
+      <tr>
+        <td height="2" colspan="4"><table width="589" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="20%">&nbsp;</td>
+            <td width="60%" class="t_line">&nbsp;</td>
+            <td width="20%">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      
+      
+      
+      <tr>
+        <td height="5" colspan="2">&nbsp;</td>
+      </tr>
+      
+      <tr>
+         
+         <td height="28" colspan="2" class="f1"><strong><script>document.write(top.str_mode_serverpush);</script></strong></td>
+      </tr>
+      
+      <tr>
+        <td height="5" colspan="2">&nbsp;</td>
+      </tr>
+      
+	  <tr>
+	     <td height="10" colspan="2" class="f1"><a id="serverpush_link" href="javascript:server_push();" class="f18"><script>document.write(top.str_signin);</script></a></td>
+	  </tr>
+      <tr>
+        <td height="2" colspan="4"><table width="589" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="20%">&nbsp;</td>
+            <td width="60%" class="t_line">&nbsp;</td>
+            <td width="20%">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      
+      <tr>
+        <td height="5" colspan="4">&nbsp;</td>
+      </tr>
+      
+      <tr>
+         
+         <td height="28" colspan="2" class="f1"><strong><script>document.write(top.str_mode_vlc);</script></strong></td>
+      </tr>
+      
+      <tr>
+        <td height="5" colspan="2">&nbsp;</td>
+      </tr>
+      <tr>
+	     <td height="10" colspan="3" class="f1"><a id="signin_vlcpush_Link" href="javascript:signin_vlcpush();" class="f18"><script>document.write(top.str_signin);</script></a></td>
+	  </tr>
+      <tr>
+        <td height="2" colspan="4"><table width="589" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="20%">&nbsp;</td>
+            <td width="60%" class="t_line">&nbsp;</td>
+            <td width="20%">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      
+	  <tr>
+	     <td height="10" colspan="2" class="f1"><br /><a id="mobile_link" href="javascript:mobile_push();" class="f18"><script>document.write(top.str_login_mobile);</script></a></td>
+	  </tr>
+      
+      <tr>
+        <td height="2" colspan="4"><table width="589" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="20%">&nbsp;</td>
+            <td width="60%" class="t_line">&nbsp;</td>
+            <td width="20%">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      
+      <tr>
+        <td height="3" colspan="4"><table width="0" border="0" align="center" cellpadding="0" cellspacing="0" class="f5">
+          <tr>
+            <td colspan="2">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="8" colspan="2"><script>document.write(top.str_attention);</script></td>
+          </tr>
+          <tr>
+            <td width="35">&nbsp;</td>
+            <td width="200"><script>document.write(top.str_attention1);</script></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><script>document.write(top.str_attention2);</script></td>
+          </tr>
+          <tr>
+            <td colspan="2">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>
+
+	  

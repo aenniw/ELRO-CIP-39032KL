@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css" type="text/css">
+<title></title>
+</head>
+<script src="get_tutk_account.cgi"></script>
+
+<script>
+function body_onload() {
+
+    //tutk
+    document.getElementById("txt_p2p_guid").value = ret_tutk_guid;  //GUID
+    document.getElementById("txt_p2p_user").value = ret_tutk_user;  //USER
+    document.getElementById("txt_p2p_pwd").value = ret_tutk_pwd;   //PWD
+}
+function save_p2p() {
+
+    if (confirm(top.str_save_confire)) {
+
+        parent.reboot_seconds = 30;
+
+        var tmp_guid = document.getElementById("txt_p2p_guid").value;
+        var tmp_user = document.getElementById("txt_p2p_user").value;
+        var tmp_pwd = document.getElementById("txt_p2p_pwd").value;
+
+        url = "set_tutk_account.cgi?next_url=rebootme.htm&tutk_guid=" + tmp_guid + "&user=" + tmp_user + "&pwd=" + tmp_pwd + "&cam_user=" + top.user + "&cam_pwd=" + top.pwd;
+
+        location = url;
+    }
+}
+</script>
+
+<body onLoad="body_onload()">
+<table width="640" height="480"><tr><td class="v1 pad2 bc4"><table width="100%" class="v2 f14 mid01">
+	<tr height="25"><td colspan="2" class="h2 bc1 mid02"><strong><script>document.write(top.str_p2p_config);</script></strong></td></tr>
+	<tr height="25">
+	   <td class="bc2 mid04" width="40%">&nbsp;&nbsp;<script>document.write(top.str_p2p_guid);</script></td>
+	   <td class="mid02">&nbsp;&nbsp;<input type="text" id="txt_p2p_guid" name="txt_p2p_guid" maxlength="64" style="width:180px" /></td>
+	</tr>
+	<tr height="25">
+	   <td class="bc2 mid04" width="40%">&nbsp;&nbsp;<script>document.write(top.str_user);</script></td>
+	   <td class="mid02">&nbsp;&nbsp;<input type="text" id="txt_p2p_user" name="txt_p2p_user" maxlength="64" style="width:180px" /></td>
+	</tr>
+	<tr height="25">
+	   <td class="bc2 mid04" width="40%">&nbsp;&nbsp;<script>document.write(top.str_pwd);</script></td>
+	   <td class="mid02">&nbsp;&nbsp;<input type="password" id="txt_p2p_pwd" name="txt_p2p_pwd" maxlength="64" style="width:180px" /></td>
+	</tr>
+	<tr height="25"><td class="h2 mid03" colspan="2"><button onClick="save_p2p()"><script>document.write(top.str_set);</script></button>&nbsp;&nbsp;&nbsp;&nbsp;<button onClick="location.reload()"><script>document.write(top.str_refresh);</script></button></td></tr>
+</table></td></tr></table>
+</body>
+
+</html>

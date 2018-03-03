@@ -1,0 +1,11 @@
+mail_sender 
+mail_receiver1 
+mail_receiver2 
+mail_receiver3 
+mail_receiver4 
+mail_svr 
+mail_port 25
+mail_tls 0
+mail_user 
+mail_pwd 
+mail_inet_ip 0

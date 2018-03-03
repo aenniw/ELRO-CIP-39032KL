@@ -1,0 +1,879 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>IP Camera</title>
+<link href="camera.css" rel="stylesheet" type="text/css" />
+<link href="camera2.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="public.js"></script>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<script src="get_camera_params.cgi"></script>
+<script>
+var R160_120=2;
+var R320_240=8;
+var R640_480=32;
+var ptz_type=0;	
+if(top.client_minor==4) ptz_type=1;
+var PTZ_STOP=1;
+var TILT_UP=0;
+var TILT_UP_STOP=1;
+var TILT_DOWN=2;
+var TILT_DOWN_STOP=3;
+var PAN_LEFT=4;
+var PAN_LEFT_STOP=5;
+var PAN_RIGHT=6;
+var PAN_RIGHT_STOP=7;
+var PTZ_LEFT_UP=90;
+var PTZ_RIGHT_UP=91;
+var PTZ_LEFT_DOWN=92;
+var PTZ_RIGHT_DOWN=93;
+var PTZ_CENTER=25;
+var PTZ_VPATROL=26;
+var PTZ_VPATROL_STOP=27;
+var PTZ_HPATROL=28;
+var PTZ_HPATROL_STOP=29;
+var PTZ_PELCO_D_HPATROL=20;
+var PTZ_PELCO_D_HPATROL_STOP=21;
+var IO_ON=94;
+var IO_OFF=95;
+var l_index=0;
+var ad_index=0;
+var show_mode=1;
+var show_640_480=0;
+var reboot_seconds=0;
+
+function GetPageScrollWidth()
+{
+    return document.documentElement.clientWidth; 
+}
+function GetPageScrollHeight()
+{
+    return document.documentElement.clientHeight;
+}
+function set_divleft_func(obj, v)
+{
+    page_width=GetPageScrollWidth();    //页面宽
+    page_height=GetPageScrollHeight();  //页面高
+    
+    div_obj=document.getElementById(obj);
+        
+    if( (page_width - 800) <= 0 )
+    {
+        div_obj.style.left = 0;
+    }
+    else
+    {
+        div_obj.style.left= (page_width - 800) / 2;
+    }
+}
+
+function body_onload()
+{    
+	resolution_sel.value=resolution;
+	mode_sel.value=mode;	
+	brightness_input.value=Math.round(brightness / 16);
+	contrast_input.value=contrast;
+    brightness_input.value=6;
+    contrast_input.value=4;
+    
+	image_reversal.checked=(flip&0x01)?true:false;
+	image_mirror.checked=(flip&0x02)?true:false;
+}
+function default_all()
+{
+	if(l_index==0)
+	{
+	    videorate.value=0;
+		resolution_sel.selectedIndex=1;
+		mode_sel.selectedIndex=0;
+		brightness_input.value=6;
+		contrast_input.value=4;
+		content_frame.default_all();
+	}
+}
+function plus_brightness()
+{
+	if(l_index==0)
+	{
+		val=brightness_input.value;
+		if (val++<15)
+		{
+		brightness_input.value=val;
+		content_frame.plus_brightness(val);
+		}
+	}
+}
+function plus_contrast()
+{
+	if(l_index==0)
+	{
+		val=contrast_input.value;
+		if (val++<6)
+		{
+		contrast_input.value=val;
+		content_frame.plus_contrast(val);
+		}
+	}
+}
+function minus_brightness()
+{
+	if(l_index==0)
+	{
+		val=brightness_input.value;
+		if (val-->0)
+		{
+		brightness_input.value=val;
+		content_frame.minus_brightness(val);
+		}
+	}	
+}
+	
+function minus_contrast()
+{
+	if(l_index==0)
+	{
+		val=contrast_input.value;
+		if (val-->0)
+		{
+		contrast_input.value=val;
+		content_frame.minus_contrast(val);
+		}
+	}
+} 
+function set_mid(v)	
+{
+    if(v==1)
+    window.content_frame.location="adsl.htm";
+    else if(v==2)
+    window.content_frame.location="upnp.htm";
+    else if(v==3)
+    window.content_frame.location="ddns.htm";
+    else if(v==4)
+    window.content_frame.location="wireless.htm";
+    else if(v==5)
+    window.content_frame.location="ip.htm";
+    else if(v==6)
+    window.content_frame.location="status.htm";
+    else if(v==7)
+    window.content_frame.location="alias.htm";
+    else if(v==8)
+    window.content_frame.location="datetime.htm";
+    else if(v==9)
+    window.content_frame.location="user.htm";
+    else if(v==10)
+    window.content_frame.location="mail.htm";
+    else if(v==11)
+    window.content_frame.location="ftp.htm";
+    else if(v==12)
+    window.content_frame.location="alarm.htm";
+    else if(v==13)
+    {
+    window.content_frame.location="monitor.htm";
+    }
+    else if(v==14)
+    window.content_frame.location="upgrade.htm";
+    else if(v==15)
+    {
+        if (confirm(top.str_sure_restore))
+	    {
+		    reboot_seconds=30;
+		    window.content_frame.location='restore_factory.cgi?next_url=reboot.htm';
+	    }
+    }
+    else if(v==16)
+    {
+        if (confirm(top.str_sure_reboot))
+	    {
+		    reboot_seconds=30;
+		    window.content_frame.location='reboot.cgi?next_url=reboot.htm';
+	    }
+    }
+    else if(v==17)
+    {
+        window.content_frame.location="multidev.htm";
+    }
+    else if(v==18)
+    {
+        window.content_frame.location="recpath.htm";
+    }
+    else if(v==19)
+    {
+        window.content_frame.location="decoder.htm";
+    }
+    else if(v==20)
+    {
+        window.content_frame.location="backup.htm";
+    }
+    else if(v==21)
+    {
+        window.content_frame.location="log.htm";
+    }
+    else if(v==24)
+   {
+       window.content_frame.location="msn.htm";
+   }
+    else
+        window.parent.parent.location.replace('index.htm');
+}
+
+function set_disabled(st)
+{
+table_other.disabled=st;
+table_system.disabled=st;
+table_net.disabled=st;
+table_multi.disabled=st;
+md1.disabled=st;
+md2.disabled=st;
+md3.disabled=st;
+md4.disabled=st;
+md5.disabled=st;
+md6.disabled=st;
+md7.disabled=st;
+md8.disabled=st;
+md9.disabled=st;
+md10.disabled=st;
+md11.disabled=st;
+md12.disabled=st;
+md13.disabled=st;
+md14.disabled=st;
+md15.disabled=st;
+md16.disabled=st;
+md17.disabled=st;
+md18.disabled=st;
+//md19.disabled=st;
+md20.disabled=st;
+md21.disabled=st;
+md24.disabled=st;
+}
+var st=0;
+function loadOK(a)
+{
+    st=0;
+    if(a.readyState=='complete')
+    {
+    st=1;
+    set_disabled(false);
+    }
+}
+
+function set_img(i)
+{
+	if(l_index==0)
+	{
+		if(i==1)
+		{
+		document.Image16.src="images/f1_1.gif";
+		document.Image17.src="images/f2.gif";
+		document.Image31.src="images/t1_1.gif";
+		
+		content_frame.x_onclick(1);
+		show_mode=1;
+		
+		}
+		else if(i==4)
+		{
+		document.Image16.src="images/f1.gif";
+		document.Image17.src="images/f2_2.gif";
+		document.Image31.src="images/t1_1.gif";
+		
+		content_frame.x_onclick(4);
+		show_mode=4;
+		
+		}
+		else
+		{
+		document.Image16.src="images/f1.gif";
+		document.Image17.src="images/f2.gif";
+		document.Image31.src="images/t1_2.gif";
+		
+		content_frame.x_onclick(9);
+		show_mode=9;
+		
+		}
+	}
+}
+function hidd()
+{
+	apDiv1.style.display='none';
+   	apDiv2.style.display='none';
+   	apDiv3.style.display='none';
+   	apDiv4.style.display='none';
+   	apDiv5.style.display='none';
+   	apDiv6.style.display='none';
+   	document.setimg_apDiv1.src="images/j1.gif";
+  	document.setimg_apDiv2.src="images/j1.gif";
+   	document.setimg_apDiv3.src="images/j1.gif";
+   	document.setimg_apDiv4.src="images/j1.gif";
+   	document.setimg_apDiv5.src="images/j1.gif";
+   	document.setimg_apDiv6.src="images/j1.gif";
+}
+function set_action(v)
+{
+	if(l_index==0)
+	{
+	content_frame.set_action(v);
+	}
+}
+function videorate_change(v)
+{
+    if(l_index==0)
+    {
+        content_frame.videorate_change(v);
+    }
+}	
+function main_setM(index, value)
+{
+    if(l_index==0)
+	{
+	    content_frame.set_M(index,value);
+	}
+}
+function set_apDiv(v)
+{
+
+   if(v!=1 && v!=5)
+   {
+   	ad_index=v;
+   	if(l_index==0)
+   	{
+   	set_iconstate(0, 1);
+   	set_iconstate(1, 1);
+   	set_iconstate(2, 1);
+   	set_disabled(true);
+   	l_index=1;
+   	}
+   	
+   	if(v==2)
+   	{
+   	content_frame.location='status.htm';
+   	}
+   	else if(v==3)
+   	{
+   	content_frame.location='mail.htm';
+   	}
+   	else if(v==4)
+   	{
+   	content_frame.location='ip.htm';
+   	}
+   	else if(v==6)
+   	{
+   	content_frame.location='multidev.htm';
+   	}
+   	
+   }
+   else
+   {
+   	if(l_index!=0)
+   	{
+   		document.Image16.src="images/f1_1.gif";
+		document.Image17.src="images/f2.gif";
+		document.Image31.src="images/t1_1.gif";
+		show_mode=1;
+		
+   	    content_frame.location="monitor.htm";
+   	}
+   	l_index=0;
+   }
+   
+   hidd();
+   
+   if(st==0)
+{
+alert(top.str_loading);
+content_frame.location.reload();
+}
+else
+{
+   if(v==1)
+   {
+   document.setimg_apDiv1.src="images/j3.gif";
+   }
+   else if(v==2)
+   {
+   set_divleft_func('apDiv2', 2);
+   apDiv2.style.display='block';
+   document.setimg_apDiv2.src="images/j3.gif";
+   }
+   else if(v==3)
+   {
+   set_divleft_func('apDiv3', 3);
+   apDiv3.style.display='block';
+   document.setimg_apDiv3.src="images/j3.gif";
+   }
+   else if(v==4)
+   {
+   set_divleft_func('apDiv4', 4);
+   apDiv4.style.display='block';
+   document.setimg_apDiv4.src="images/j3.gif";
+   }
+   else if(v==5)
+   {
+   	 setAV(-1);
+     if(show_mode==1)
+     {
+       if(show_640_480==1)//jwb090703
+       {
+          set_divleft_func('apDiv51', 51); 
+          apDiv51.style.display='block';
+       }
+       else
+       {
+          set_divleft_func('apDiv5', 5);
+   	      apDiv5.style.display='block';
+   	   }
+   	 }
+     else
+     {
+       set_divleft_func('apDiv51', 51); 
+   	   apDiv51.style.display='block';
+   	 }
+     document.setimg_apDiv5.src="images/j3.gif";
+   }
+   else
+   {
+   set_divleft_func('apDiv6', 6);
+   apDiv6.style.display='block';
+   document.setimg_apDiv6.src="images/j3.gif";
+   }
+ }
+}
+function setAV(v)
+{
+	apDiv5OSD.style.display='none';
+	apDiv51OSD.style.display='none';
+	if(v==0)
+		apDiv5OSD.style.display='block';
+	else if(v==2)
+		apDiv51OSD.style.display='block';
+}
+function set_iconstate(type,index)
+{
+    if(type==0)
+    {
+        if(index==0)
+        {
+            rec_href.className="f9_on";
+        }
+        else if(index==1)
+        {
+            rec_href.className="f9";
+        }
+    }
+}
+
+</script>
+</head>
+
+<body onload="body_onload()">
+
+<div id="apDiv1" class="ap1"  style="display:none; background-color:#FFFFFF;	line-height: 24px;" onmouseover="apDiv1.style.display='block';" onmouseout="apDiv1.style.display='none';">
+  <table width="130" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><div align="left"><a id="md13" href="javascript:set_mid(13)" class="f_ta"><script>document.write(top.str_livevideo)</script></a></div></td>
+    </tr>
+  </table>
+</div>
+<div id="apDiv5" class="ap1"  style="display:none; background-color:#FFFFFF;	line-height: 24px;" onmouseover="this.style.display='block';" onmouseout="this.style.display='none';">
+  <table width="151" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr><td><a class="f_ta" href="javascript:setAV(0)">OSD</a></td></tr>
+    <tr><td>
+    	  <div id="apDiv5OSD" style="display:none; background-color:#FFFFFF;	line-height: 24px;">
+  	        <table>
+  		<tr>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(0)"><font color="blue"><script>document.write(top.str_osd_list0);</script></font></a></td>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(1)"><font color="blue"><script>document.write(top.str_osd_list1);</script></font></a></td>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(2)"><font color="blue"><script>document.write(top.str_osd_list2);</script></font></a></td>
+  		</tr><tr>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(3)"><font color="blue"><script>document.write(top.str_osd_list3);</script></font></a></td>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(4)"><font color="blue"><script>document.write(top.str_osd_list4);</script></font></a></td>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(5)"><font color="blue"><script>document.write(top.str_osd_list5);</script></font></a></td>
+  		</tr>
+  	</table>
+  </div>
+</td></tr>
+       
+    <tr>
+    <td>
+    <input id="image_reversal" type="checkbox" onClick="content_frame.image_reversal_onclick(this.checked)"><script>document.write(top.str_reversal);</script>
+    </td>
+    </tr>
+    
+    <tr>
+    <td>
+    <input id="image_mirror" type="checkbox" onClick="content_frame.image_mirror_onclick(this.checked)"> <script>document.write(top.str_mirror);</script>
+    </td>
+    </tr>
+     
+     <tr>
+    <td><input id="record_osd_chk" type="checkbox" onClick="content_frame.record_osd_onclick(this.checked)"><script>document.write(top.str_record_osd);</script></td>
+    </tr>
+    
+  </table>
+</div>
+<div id="apDiv51" class="ap1"  style="display:none; background-color:#FFFFFF;	line-height: 24px;" onmouseover="apDiv51.style.display='block';" onmouseout="apDiv51.style.display='none';">
+  <table width="151" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr><td><a class="f_ta" href="javascript:setAV(2)">OSD</a></td></tr>
+    <tr><td>
+    	<div id="apDiv51OSD"  style="display:none; background-color:#FFFFFF;	line-height: 24px;">
+  	<table>
+  		<tr>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(0)"><font color="blue"><script>document.write(top.str_osd_list0);</script></font></a></td>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(1)"><font color="blue"><script>document.write(top.str_osd_list1);</script></font></a></td>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(2)"><font color="blue"><script>document.write(top.str_osd_list2);</script></font></a></td>
+  		</tr><tr>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(3)"><font color="blue"><script>document.write(top.str_osd_list3);</script></font></a></td>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(4)"><font color="blue"><script>document.write(top.str_osd_list4);</script></font></a></td>
+  			<td><a class="f_ta" href="javascript:content_frame.osd_onchange(5)"><font color="blue"><script>document.write(top.str_osd_list5);</script></font></a></td>
+  		</tr>
+  	</table>
+  </div>
+  </td></tr>
+    	
+    <tr>
+    <td>
+    <input id="image_reversal1" type="checkbox" onClick="content_frame.image_reversal_onclick(this.checked)"><script>document.write(top.str_reversal);</script>
+    </td>
+    </tr>
+    
+    <tr>
+    <td>
+    <input id="image_mirror1" type="checkbox" onClick="content_frame.image_mirror_onclick(this.checked)"><script>document.write(top.str_mirror);</script>
+    </td>
+    </tr>
+    
+    <tr>
+    <td><input id="record_osd_chk51" type="checkbox" onClick="content_frame.record_osd_onclick(this.checked)"><script>document.write(top.str_record_osd);</script>
+    </td>
+    </tr>
+  </table>
+</div>
+<div id="apDiv6" class="ap1"  style="display:none; background-color:#FFFFFF;	line-height: 24px;" onmouseover="apDiv6.style.display='block';" onmouseout="apDiv6.style.display='none';">
+  <table width="150" border="0" align="left" cellpadding="0" cellspacing="0">
+   <tr>
+      <td><div align="left"><a id="md17" href="javascript:set_mid(17)" class="f_ta"><script>document.write(top.str_multidevice_config)</script></a></div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><a id="md14" href="javascript:set_mid(14)" class="f_ta"><script>document.write(top.str_upgrade_firmware)</script></a></div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><a id="md15" href="javascript:set_mid(15)" class="f_ta"><script>document.write(top.str_restore_factory)</script></a></div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><a id="md16" href="javascript:set_mid(16)" class="f_ta"><script>document.write(top.str_reboot)</script></a></div></td>
+    </tr>
+  </table>
+</div>
+
+
+<div id="apDiv4" class="ap1" style="display:none; background-color:#FFFFFF; line-height: 24px;" onmouseover="apDiv4.style.display='block';" onmouseout="apDiv4.style.display='none';" >
+  
+  <table width="130" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><div align="left"><a id="md5" href="javascript:set_mid(5)" class="f_ta"><script>document.write(top.str_network_config)</script></a></div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><a id="md4" href="javascript:set_mid(4)" class="f_ta"><script>document.write(top.str_wireless_config)</script></a></div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><a id="md1" href="javascript:set_mid(1)" class="f_ta"><script>document.write(top.str_adsl_config)</script></a></div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><a id="md2" href="javascript:set_mid(2)" class="f_ta"><script>document.write(top.str_upnp_config)</script></a></div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><a id="md3" href="javascript:set_mid(3)" class="f_ta"><script>document.write(top.str_ddns_config)</script></a></div></td>
+    </tr>
+ 
+</table></div>
+
+<div id="apDiv2" class="ap1"  style="display:none; background-color:#FFFFFF;	line-height: 24px;" onmouseover="apDiv2.style.display='block';" onmouseout="apDiv2.style.display='none';">
+  <table width="124" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="156"><a id="md6" href="javascript:set_mid(6)" class="f_ta"><script>document.write(top.str_dev_info)</script></a></td>
+    </tr>
+    <tr>
+      <td><a id="md7" href="javascript:set_mid(7)" class="f_ta"><script>document.write(top.str_alias_config)</script></a></td>
+    </tr>
+    <tr>
+      <td><a id="md8" href="javascript:set_mid(8)" class="f_ta"><script>document.write(top.str_datetime_config)</script></a></td>
+    </tr>
+    <tr>
+      <td><a id="md9" href="javascript:set_mid(9)" class="f_ta"><script>document.write(top.str_users_config)</script></a></td>
+    </tr>
+    <!--
+    <tr>
+      <td><a id="md19" href="javascript:set_mid(19)" class="f_ta"><script>document.write(top.str_decoder_config)</script></a></td>
+    </tr>
+    -->
+    <tr>
+      <td><a id="md20" href="javascript:set_mid(20)" class="f_ta"><script>document.write(top.str_backup_restore1)</script></a></td>
+    </tr>
+    <tr>
+      <td><a id="md21" href="javascript:set_mid(21)" class="f_ta"><script>document.write(top.str_log)</script></a></td>
+    </tr>
+    <!--新增加-->
+    <tr>
+      <td><a id="md24" href="javascript:set_mid(24)" class="f_ta"><script>document.write(top.str_msn_config)</script></a></td>
+    </tr>
+  </table>
+</div>
+<div id="apDiv3"class="ap1" style="display:none; background-color:#FFFFFF;	line-height: 24px;" onmouseover="apDiv3.style.display='block';" onmouseout="apDiv3.style.display='none';">
+  <table width="129" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="129"><a id="md10" href="javascript:set_mid(10)" class="f_ta"><script>document.write(top.str_mail_config)</script></a></td>
+    </tr>
+    <tr>
+      <td><a href="javascript:set_mid(11)" id="md11" class="f_ta"><script>document.write(top.str_ftp_config)</script></a></td>
+    </tr>
+    <tr>
+      <td><a id="md12" href="javascript:set_mid(12)" class="f_ta"><script>document.write(top.str_alarm_config)</script></a></td>
+    </tr>
+    <tr>
+      <td><a id="md18" href="javascript:set_mid(18)" class="f_ta"><script>document.write(top.str_pathset)</script></a></td>
+    </tr>
+  </table>
+</div>
+
+
+<table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="t_22">
+  <tr>
+    <td width="790" class="l2"><img src="images/top2.gif" width="800" height="58" /></td>
+</tr>
+  <tr>
+    <td><table width="800" border="0" cellpadding="0" cellspacing="0" bgcolor="#0a8942">
+      <tr>
+        <td width="152" height="32" class="l3" ><table width="152" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="30">&nbsp;</td>
+            <td width="20"><img name="setimg_apDiv1" src="images/j1.gif" width="18" height="16" /></td>
+            <td width="96"><a href="javascript:set_apDiv(1);" target="_self" class="f5"><script>document.write(top.str_livevideo);</script></a></td>
+          </tr>
+        </table></td>
+        
+        <td width="160" class="l2"><table width="0" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="160" align="center"><a href="javascript:set_action(1);" class="f8"><script>document.write(top.str_play)</script></a></td>
+          </tr>
+        </table></td>
+        <td width="160" class="l2"><table width="82" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="160" align="center"><a href="javascript:set_action(2);" target="_self" class="f7"><script>document.write(top.str_stop)</script></a></td>
+          </tr>
+        </table></td>
+        <td width="160" class="l2"><table width="71" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="160" align="center"><a href="javascript:set_action(3);" class="f10"><script>document.write(top.str_snapshot)</script></a></td>
+          </tr>
+        </table></td>
+        <td width="160" class="l2"><table width="0" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="160" align="center"><a id="rec_href" href="javascript:set_action(4);" class="f9"><script>document.write(top.str_record)</script></a></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td><table width="770" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="152"><table width="152" border="0" cellspacing="0" cellpadding="0">
+          <tr bgcolor="#0a8942">
+            <td height="32" ><table border="0" cellpadding="0" cellspacing="0">
+
+              <tr>
+                <td height="34" class="l3"><table width="152" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="30">&nbsp;</td>
+                    <td width="20"><img name="setimg_apDiv6" src="images/j1.gif" width="18" height="16" /></td>
+                    <td width="96"><a id="table_multi" href="javascript:set_apDiv(6);" class="f5"><script>document.write(top.str_multi);</script></a><a href="#" target="_self" class="f5"></a></td>
+                  </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td height="32" class="l3"><table width="146" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="30">&nbsp;</td>
+                    <td width="20"><img name="setimg_apDiv4" src="images/j1.gif" width="18" height="16" /></td>
+                    	<td width="96"><a id="table_net" href="javascript:set_apDiv(4);" class="f5"><script>document.write(top.str_net);</script></a></td>
+                  </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td height="32" class="l3"><table width="146" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="30">&nbsp;</td>
+                    <td width="20"><img name="setimg_apDiv5" src="images/j1.gif" width="18" height="16" /></td>
+                    <td width="96"><a href="javascript:set_apDiv(5);" class="f5"><script>document.write(top.str_img);</script></a><a href="#" class="f5" onmousedown="apDiv1.style.display='block';" onmouseout="apDiv1.style.display='none';"></a><a href="#" class="f5"></a><a href="#" target="_self" class="f5"></a></td>
+                  </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td height="32" class="l3"><table width="146" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="30">&nbsp;</td>
+                    <td width="20"><img name="setimg_apDiv2" src="images/j1.gif" width="18" height="16" /></td>
+                    <td width="96"><a id="table_system"  href="javascript:set_apDiv(2);" class="f5"><script>document.write(top.str_system);</script></a><a href="#" class="f5" onmousedown="apDiv1.style.display='block';" onmouseout="apDiv1.style.display='none';"></a><a href="#" class="f5"></a><a href="#" target="_self" class="f5"></a></td>
+                  </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td height="32" class="l3"><table width="146" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="30">&nbsp;</td>
+                    <td width="20"><img name="setimg_apDiv3" src="images/j1.gif" width="18" height="16" /></td>
+                    <td width="96"><a id="table_other" href="javascript:set_apDiv(3);" class="f5"><script>document.write(top.str_other);</script></a><a href="#" class="f5" onmousedown="apDiv1.style.display='block';" onmouseout="apDiv1.style.display='none';"></a><a href="#" class="f5"></a><a href="#" target="_self" class="f5"></a></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table>            </td>
+          </tr>
+          
+          <tr>
+            <td><table width="146" border="0" cellpadding="0" cellspacing="0" bgcolor="#a1fa82">
+              <tr>
+                <td height="54" colspan="2"><table width="151" border="0" align="center" cellpadding="0" cellspacing="0" class="t1">
+                  <tr>
+                    <td width="56" height="34" bgcolor="#f0f8eb"><table width="0" border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td><a href="javascript:set_img(1)"><img src="images/f1_1.gif" name="Image16" width="50" height="24" border="0" id="Image16" /></a></td>
+                      </tr>
+                    </table></td>
+                    <td width="51" bgcolor="#f0f8eb"><table width="0" border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td><a href="javascript:set_img(4)"><img src="images/f2.gif" name="Image17" width="51" height="24" border="0" id="Image17" /></a></td>
+                      </tr>
+                    </table></td>
+                    <td width="42" bgcolor="#f0f8eb"><table width="0" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="34"><a href="javascript:set_img(9)" ><img src="images/t1_1.gif" name="Image31" width="49" height="34" border="0" id="Image31" /></a></td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+              </tr>
+              
+              <tr>
+                <td colspan="2" height="10">&nbsp;</td>
+              </tr>
+              
+              <tr>
+                <td colspan="2"><table width="0" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="57" class="f2"><script>document.write(top.str_video_rate);</script></td>
+                    <td width="56" align="center"><select id="videorate" style="width:80px" class="s4" onchange="videorate_change(this.value)">
+                    <option value="0"><script>document.write(top.str_full_speed);</script></option>
+		            <option value="1">20 fps</option>
+		            <option value="3">15 fps</option>
+		            <option value="6">10 fps</option>
+		            <option value="11">5 fps</option>
+		            <option value="12">4 fps</option>
+		            <option value="13">3 fps</option>
+		            <option value="14">2 fps</option>
+		            <option value="15">1 fps</option>
+		            <option value="17">1 fp/2s</option>
+		            <option value="19">1 fp/3s</option>
+		            <option value="21">1 fp/4s</option>
+		            <option value="23">1 fp/5s</option>
+                    </select></td>
+                    <td></td>
+                  </tr>
+                </table></td>
+              </tr>
+              
+              <tr>
+                <td colspan="2"><table width="0" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="57" class="f2"><script>document.write(top.str_resolution);</script></td>
+                    <td width="56" align="center"><SELECT id="resolution_sel" style="width:80px" class="s4" onChange="main_setM(0,this.value)">
+                    <option value="2">160*120</option>
+                    <option value="8">320*240</option>
+                    <option value="32">640*480</option>
+                    </SELECT></td>
+                    <td></td>
+                  </tr>
+                </table></td>
+              </tr>
+              
+              <tr>
+                <td colspan="2"><table width="0" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="57" class="f2"><script>document.write(top.str_mode)</script></td>
+                      <td width="56" align="center">
+                      <SELECT class="s4" id="mode_sel" style="width:80px" onChange="main_setM(3,this.value)">
+                      <OPTION value="0">&nbsp;&nbsp;50 HZ&nbsp;&nbsp;</OPTION><OPTION value="1">
+                      &nbsp;&nbsp;60 HZ&nbsp;&nbsp;</OPTION>
+                      <OPTION value="2">
+                      <script>document.write(top.str_outdoor);</script>
+                      </OPTION></SELECT></td>
+                      <td></td>
+                    </tr>
+                </table></td>
+              </tr>
+              
+              <tr>
+                <td colspan="2" height="10">&nbsp;</td>
+              </tr>
+              
+              <tr>
+                <td><table width="0" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="56" class="f2"><script>document.write(top.str_brightness)</script></td>
+                      <td width="35"><img onclick="javascript:minus_brightness()" src="images/a11.gif" width="24" height="15" /></td>
+                      <td width="22">
+                        <label>
+                        <input name="brightness_input" readonly type="text" class="lab" id="brightness_input" size="2" maxlength="2" />
+                        </label>
+		              </td>
+                    </tr>
+                </table></td>
+                <td><div align="center"><img onclick="javascript:plus_brightness()" src="images/a22.gif" width="24" height="15" /></div></td>
+              </tr>
+              <tr>
+                <td><table width="0" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="56" class="f2"><script>document.write(top.str_contrast)</script></td>
+                      <td width="35"><img onclick="javascript:minus_contrast()" src="images/a11.gif" width="24" height="15" /></td>
+                      <td width="22">
+                        <label>
+                        <input name="contrast_input" readonly type="text" class="lab" id="contrast_input" size="2" maxlength="2" />
+                        </label>
+		              </td>
+                    </tr>
+                </table></td>
+                <td><div align="center"><img onclick="javascript:plus_contrast()" src="images/a22.gif" width="24" height="15" /></div></td>
+              </tr>
+              
+              <tr>
+                <td colspan="2" height="10">&nbsp;</td>
+              </tr>
+              
+              <tr>
+                <td colspan="2"><table width="0" border="0" align="center" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="70"><a href="javascript:default_all();" class="f4"><script>document.write(top.str_default)</script></a></td>
+                  </tr>
+                </table></td>
+              </tr>
+              
+              <tr>
+                <td colspan="2" height="160">&nbsp;</td>
+              </tr>
+              
+            </table></td>
+          </tr>
+        </table></td>
+        <td width="648" bgcolor="#FFFFFF" align="center" valign="top"><IFRAME id="content_frame" NAME="content_frame" width=648 height=555 marginwidth=0 marginheight=0 SCROLLING="auto" SRC="monitor.htm" onreadystatechange="loadOK(this);"></IFRAME></td>
+      </tr>
+    </table></td>
+  </tr>
+</body>
+</html>

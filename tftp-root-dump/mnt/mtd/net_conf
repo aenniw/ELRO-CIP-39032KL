@@ -1,0 +1,26 @@
+ipcamIP 0.0.0.0
+ipcamIPMask 0.0.0.0
+ipcamGatewayIP 0.0.0.0
+dns 0.0.0.0
+byMACAddr 00841002B077
+dhcp_vendor 0
+dwPPPOE 0
+sPPPoEUser 
+sPPPoEPassword 
+sPPPoEIP 153.24.65.1
+web_port 80
+video_port 80
+mobi_port 2012
+rtsp_port 554
+ddns_enable 0
+ddns_service 0
+ddnsaddress apexis.f3322.org
+ddnsUser pdb
+ddnsPassword apexis
+ddns_proxy_port 80
+ddns_proxy_svr www.cipcam.com
+restart_dyndns 0
+mddnsaddress abc.aipcam.com
+mddnsUser abc
+mddnsPassword 123
+UPnP 1

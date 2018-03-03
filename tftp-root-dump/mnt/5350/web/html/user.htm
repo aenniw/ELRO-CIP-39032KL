@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style.css" type="text/css">
+<title></title>
+</head>
+<script src="get_params.cgi"></script>
+<script>
+if (alias=='') alias=top.str_anonymous;
+top.alias=alias;
+top.document.title=top.str_device+'('+alias+')';
+function body_onload()
+{
+	user1.value=user1_name;
+	pwd1.value=user1_pwd;	
+	pri1.selectedIndex=user1_pri;
+	user2.value=user2_name;
+	pwd2.value=user2_pwd;	
+	pri2.selectedIndex=user2_pri;
+	user3.value=user3_name;
+	pwd3.value=user3_pwd;	
+	pri3.selectedIndex=user3_pri;
+	user4.value=user4_name;
+	pwd4.value=user4_pwd;	
+	pri4.selectedIndex=user4_pri;
+	user5.value=user5_name;
+	pwd5.value=user5_pwd;	
+	pri5.selectedIndex=user5_pri;
+	user6.value=user6_name;
+	pwd6.value=user6_pwd;	
+	pri6.selectedIndex=user6_pri;
+	user7.value=user7_name;
+	pwd7.value=user7_pwd;	
+	pri7.selectedIndex=user7_pri;
+	user8.value=user8_name;
+	pwd8.value=user8_pwd;	
+	pri8.selectedIndex=user8_pri;
+}
+function set_users()
+{
+	parent.reboot_seconds=30;
+	url='set_users.cgi?next_url=rebootme.htm&user1='+user1.value+'&pwd1='+pwd1.value+'&pri1='+pri1.selectedIndex+'&user2='+user2.value+'&pwd2='+pwd2.value+'&pri2='+pri2.selectedIndex+'&user3='+user3.value+'&pwd3='+pwd3.value+'&pri3='+pri3.selectedIndex+'&user4='+user4.value+'&pwd4='+pwd4.value+'&pri4='+pri4.selectedIndex+'&user5='+user5.value+'&pwd5='+pwd5.value+'&pri5='+pri5.selectedIndex+'&user6='+user6.value+'&pwd6='+pwd6.value+'&pri6='+pri6.selectedIndex+'&user7='+user7.value+'&pwd7='+pwd7.value+'&pri7='+pri7.selectedIndex+'&user8='+user8.value+'&pwd8='+pwd8.value+'&pri8='+pri8.selectedIndex;
+	location=url;
+}
+</script>	
+<body onLoad="body_onload()">
+<table width="640" height="480"><tr><td class="v1 pad2 bc4"><table width="100%" class="v2 h2 f14 mid01">
+	<tr height="25"><td colspan="3" class="bc1 mid02"><strong><script>document.write(top.str_users_config);</script></strong></td></tr>
+	<tr height="25"><td class="bc2 mid04" width="40%">&nbsp;&nbsp;<script>document.write(top.str_user);</script></td><td class="bc2 mid04" width="40%">&nbsp;&nbsp;<script>document.write(top.str_pwd);</script></td><td class="bc2 mid02" width="20%">&nbsp;&nbsp;<script>document.write(top.str_group);</script></td></tr>
+	<tr height="25"><td class="mid04"><input disabled="disabled" id="user1" maxlength="12"></td><td class="mid04"><input id="pwd1" type="password" maxlength="12"></td><td class="mid02"><select id="pri1"><script>document.write(top.str_pri_list);</script></select></td></tr>
+	<tr height="25"><td class="mid04"><input id="user2" onKeyUp="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" onBlur="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" maxlength="12"></td><td class="mid04"><input id="pwd2" type="password" maxlength="12"></td><td class="mid02"><select id="pri2"><script>document.write(top.str_pri_list);</script></select></td></tr>
+	<tr height="25"><td class="mid04"><input id="user3" onKeyUp="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" onBlur="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" maxlength="12"></td><td class="mid04"><input id="pwd3" type="password" maxlength="12"></td><td class="mid02"><select id="pri3"><script>document.write(top.str_pri_list);</script></select></td></tr>
+	<tr height="25"><td class="mid04"><input id="user4" onKeyUp="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" onBlur="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" maxlength="12"></td><td class="mid04"><input id="pwd4" type="password" maxlength="12"></td><td class="mid02"><select id="pri4"><script>document.write(top.str_pri_list);</script></select></td></tr>
+	<tr height="25"><td class="mid04"><input id="user5" onKeyUp="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" onBlur="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" maxlength="12"></td><td class="mid04"><input id="pwd5" type="password" maxlength="12"></td><td class="mid02"><select id="pri5"><script>document.write(top.str_pri_list);</script></select></td></tr>
+	<tr height="25"><td class="mid04"><input id="user6" onKeyUp="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" onBlur="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" maxlength="12"></td><td class="mid04"><input id="pwd6" type="password" maxlength="12"></td><td class="mid02"><select id="pri6"><script>document.write(top.str_pri_list);</script></select></td></tr>
+	<tr height="25"><td class="mid04"><input id="user7" onKeyUp="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" onBlur="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" maxlength="12"></td><td class="mid04"><input id="pwd7" type="password" maxlength="12"></td><td class="mid02"><select id="pri7"><script>document.write(top.str_pri_list);</script></select></td></tr>
+	<tr height="25"><td class="mid04"><input id="user8" onKeyUp="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" onBlur="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" maxlength="12"></td><td class="mid04"><input id="pwd8" type="password" maxlength="12"></td><td class="mid02"><select id="pri8"><script>document.write(top.str_pri_list);</script></select></td></tr>
+	<tr height="25"><td class="mid03" colspan="3"><button onClick="set_users()"><script>document.write(top.str_set);</script></button>&nbsp;&nbsp;&nbsp;&nbsp;<button onClick="location.reload()"><script>document.write(top.str_refresh);</script></button></td></tr>
+</table></td></tr></table>
+</body>
+</html>

@@ -1,6 +1,8 @@
 # ELRO-CIP-39032KL
 IP-Camera device dumps
 
+[Vendor manuals, software](https://drive.google.com/file/d/1MJy82aT7aFVucKvwRhahrEcRmY4LAfqH/view?usp=sharing)
+
 ### Device info
 
 #### /proc/mtd 
@@ -61,4 +63,19 @@ VmallocChunk:  1037452 kB
 #### /proc/version
 ```
 Linux version 2.6.21 (root@test) (gcc version 3.4.2) #136 Mon May 20 11:39:34 CST 2013
+```
+
+### Dump scripts
+
+```
+#!/bin/sh
+# Usage script.sh /
+
+for f in $1*; do
+	if [ "${f}" == "/dev" ] || [ "${f}" == "/tmp" ] || [ "${f}" == "/sys" ] || [ "${f}" == "/proc" ]; then
+		continue
+	fi
+	test -d "${f}" && $0 "${f}/"
+	test -f "${f}" && tftp -l ${f} -p ${TFTP_SERVER}
+done
 ```

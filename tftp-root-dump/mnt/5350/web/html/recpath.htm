@@ -1,0 +1,109 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <title></title>
+</head>
+
+<script language="javascript">
+
+function GetSystemDiskLetter()
+{
+	return "C:\\";
+}
+function IsWindowsVistaSystem()
+{
+	var str = navigator.userAgent.split(";");
+	if(str[2] == " Windows NT 6.0")
+		return true;
+	else
+		return false;
+}
+
+function record_browse()
+{
+    var	re = ipcam.SetRecordPath();
+	var RecordPath=ipcam.GetRecordPath();
+	var str = GetSystemDiskLetter();
+	
+	while(str == RecordPath && IsWindowsVistaSystem())
+	{
+		window.alert(top.str_RECPathfailC);
+		re = ipcam.SetRecordPath();
+		RecordPath=ipcam.GetRecordPath();
+	}
+	
+	if(re == 0)
+	{
+		RecordPath=ipcam.GetRecordPath();
+		record_input.value=RecordPath;
+		alert(top.str_RECPathSuccess);
+	}
+	if(re<0)
+	{
+		if(IsWindowsVistaSystem())
+		{
+		    alert(top.str_SetTrustedSites); 
+		}
+		else
+		{
+			alert(top.str_RECPathFail);
+		}
+	}
+}
+
+function alarm_record_browse()
+{
+    var re = ipcam.SetAlarmRecordPath();
+	AlarmRecordPath=ipcam.GetAlarmRecordPath();
+	
+	var str = GetSystemDiskLetter();
+	while(str == AlarmRecordPath && IsWindowsVistaSystem())
+	{
+		window.alert(top.str_AlarmPathFailC);
+		re = ipcam.SetAlarmRecordPath();
+		AlarmRecordPath=ipcam.GetAlarmRecordPath();
+	}
+	if(0 == re)
+	{
+		AlarmRecordPath=ipcam.GetAlarmRecordPath();
+		alarm_record_input.value=AlarmRecordPath;
+		alert(top.str_AlarmPathSuccess);
+	}
+	if(re<0)
+	{
+		if(IsWindowsVistaSystem()) //vista
+		alert(top.str_SetTrustedSites); 
+		else
+		{
+			alert(top.str_AlarmPathFail);
+		}
+	}
+}
+
+function body_onload()
+{
+    record_input.value  = ipcam.GetRecordPath();
+	alarm_record_input.value = ipcam.GetAlarmRecordPath();
+}
+
+</script>
+
+<body onLoad="body_onload()">
+<table width="640" height="480"><tr><td class="v1 pad2 bc4"><table width="100%" class="v2 f14 mid01">
+    <tr height="25"><td colspan="4" class="h2 v2 bc1 f14 mid02"><strong><script>document.write(top.str_pathset);</script></strong></td></tr>
+	<tr height="25">
+	    <td class="v2 bc2 f14 mid03" width="20%">&nbsp;&nbsp;<script>document.write(top.str_record_path);</script></td>
+	    <td class="v2 mid03">&nbsp;&nbsp;<input id="record_input" type="text" readonly="readonly" maxlength="100" /></td>
+	    <td class="v2 mid03">&nbsp;&nbsp;<button id="record_btn" onClick="record_browse()"><script>document.write(top.str_browse);</script></button></td>
+	</tr>
+	<tr height="25">
+	    <td class="v2 bc2 f14 mid03" width="20%">&nbsp;&nbsp;<script>document.write(top.str_alarm_record_path);</script></td>
+	    <td class="v2 mid03">&nbsp;&nbsp;<input id="alarm_record_input" type="text" readonly="readonly" maxlength="100" /></td>
+	    <td class="v2 mid03">&nbsp;&nbsp;<button id="alarm_record_btn" onClick="alarm_record_browse()"><script>document.write(top.str_browse);</script></button></td>
+	</tr>
+</table></td></tr></table>
+
+<OBJECT id="ipcam" codebase="DvmMJCam.ocx#version=1,0,0,18" height="0" width="0" classid="clsid:8b254f59-e661-41af-a1a4-43e91436778e"></OBJECT>
+</body>
+</html>

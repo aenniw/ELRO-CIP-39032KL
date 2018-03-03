@@ -1,0 +1,15 @@
+ctl_num 0
+OSDTimer 7
+brightness 112
+contrast 4
+hue 0
+saturation 128
+ptzspeed 50
+mirror 0
+flip 0
+mode 0
+standard 2
+def_bs 0
+resolution 8
+framerate 25
+bitrate 2

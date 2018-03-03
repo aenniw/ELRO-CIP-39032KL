@@ -1,0 +1,7 @@
+byMACAddr 54:CD:EE:04:A5:5F
+factory_ddns_service 0
+factory_ddns_host /vipddns/upgengxin.asp
+factory_ddns_user a65376
+factory_ddns_pwd 510
+factory_ddns_proxy_svr www.oipcam.com
+factory_ddns_proxy_port 80

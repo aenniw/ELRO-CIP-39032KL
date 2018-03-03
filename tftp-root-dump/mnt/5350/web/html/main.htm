@@ -1,0 +1,65 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>sign in</title>
+<link href="sign.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+<script language="javascript" src="public.js"></script>
+
+<script src="check_user.cgi"></script>
+<script>
+    if (typeof (pri) == "undefined") 
+    {
+        location.replace("message.htm");
+    }
+</script>
+
+<script src="get_status.cgi"></script>
+<script>
+//var user='admin';
+//var pwd='admin';
+
+if (alias=='') alias=str_anonymous;
+document.title=str_device+'('+alias+')';
+var client_major=0;
+var client_minor=3;
+var browser = 0;
+
+var reboot_user = '';
+var reboot_pwd = '';
+
+function body_onload() 
+{
+    if (typeof (setuserflag) == "undefined") 
+    {
+        document.getElementById("main_content_frame").src = "login.htm";
+    }
+    else 
+    {
+        if (1 == setuserflag) 
+        {
+            document.getElementById("main_content_frame").src = "login.htm";
+        }
+        else if (0 == setuserflag) 
+        {
+            document.getElementById("main_content_frame").src = "modify.htm";
+        } 
+    }
+}
+</script>
+
+</head>
+<body onload="body_onload()">
+<iframe id="main_content_frame" name="main_content_frame" marginheight="0" marginwidth="0" width="100%" height="100%" frameborder="0" scrolling="yes">
+</iframe>
+</body>
+</html>

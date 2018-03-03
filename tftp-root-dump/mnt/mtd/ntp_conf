@@ -1,0 +1,4 @@
+ntp_enable 0
+ntp_svr 
+daylight_saving_time 0
+TimeZone -28800

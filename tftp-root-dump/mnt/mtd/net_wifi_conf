@@ -1,0 +1,18 @@
+wifi_enable 0
+wifi_mode 0
+wifi_encrypt 0
+wifi_authtype 0
+wifi_defkey 1
+wifi_ssid 
+wifi_wpa_psk 
+wifi_channel 0
+wifi_keyformat 0
+wifi_key1_bits 0
+wifi_key2_bits 0
+wifi_key3_bits 0
+wifi_key4_bits 0
+wifi_key1 
+wifi_key2 
+wifi_key3 
+wifi_key4 
+wifi_country 0
