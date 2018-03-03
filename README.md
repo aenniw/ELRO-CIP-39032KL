@@ -1,2 +1,64 @@
 # ELRO-CIP-39032KL
 IP-Camera device dumps
+
+### Device info
+
+#### /proc/mtd 
+```
+dev:    size   erasesize  name
+mtd0: 00020000 00010000 "Bootloader"
+mtd1: 00010000 00010000 "Config"
+mtd2: 00010000 00010000 "Factory"
+mtd3: 00130000 00010000 "Kernel"
+mtd4: 00190000 00010000 "RootFS"
+mtd5: 00500000 00010000 "user"
+```
+
+#### cat /proc/cpuinfo
+```
+system type             : Ralink SoC
+processor               : 0
+cpu model               : MIPS 24K V4.12
+BogoMIPS                : 239.61
+wait instruction        : yes
+microsecond timers      : yes
+tlb_entries             : 32
+extra interrupt vector  : yes
+hardware watchpoint     : yes
+ASEs implemented        : mips16 dsp
+VCED exceptions         : not available
+VCEI exceptions         : not available
+```
+
+#### /proc/meminfo 
+```
+MemTotal:        28972 kB
+MemFree:          4072 kB
+Buffers:          1600 kB
+Cached:           3848 kB
+SwapCached:          0 kB
+Active:           7260 kB
+Inactive:         1988 kB
+SwapTotal:           0 kB
+SwapFree:            0 kB
+Dirty:               0 kB
+Writeback:           0 kB
+AnonPages:        3828 kB
+Mapped:           8732 kB
+Slab:             4880 kB
+SReclaimable:      600 kB
+SUnreclaim:       4280 kB
+PageTables:        156 kB
+NFS_Unstable:        0 kB
+Bounce:              0 kB
+CommitLimit:     14484 kB
+Committed_AS:     9608 kB
+VmallocTotal:  1048404 kB
+VmallocUsed:      9716 kB
+VmallocChunk:  1037452 kB
+```
+
+#### /proc/version
+```
+Linux version 2.6.21 (root@test) (gcc version 3.4.2) #136 Mon May 20 11:39:34 CST 2013
+```

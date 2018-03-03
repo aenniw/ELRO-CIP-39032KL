@@ -1,0 +1,163 @@
+<5>Linux version 2.6.21 (root@test) (gcc version 3.4.2) #136 Mon May 20 11:39:34 CST 2013
+<4>
+<4> The CPU feqenuce set to 360 MHz
+<4>CPU revision is: 0001964c
+<4>Determined physical RAM map:
+<4> memory: 02000000 @ 00000000 (usable)
+<7>On node 0 totalpages: 8192
+<7>  DMA zone: 64 pages used for memmap
+<7>  DMA zone: 0 pages reserved
+<7>  DMA zone: 8128 pages, LIFO batch:0
+<7>  Normal zone: 0 pages used for memmap
+<4>Built 1 zonelists.  Total pages: 8128
+<5>Kernel command line: console=ttyS1,57600n8 root=/dev/mtdblock4
+<4>Primary instruction cache 32kB, physically tagged, 4-way, linesize 32 bytes.
+<4>Primary data cache 16kB, 4-way, linesize 32 bytes.
+<6>Synthesized TLB refill handler (20 instructions).
+<6>Synthesized TLB load handler fastpath (32 instructions).
+<6>Synthesized TLB store handler fastpath (32 instructions).
+<6>Synthesized TLB modify handler fastpath (31 instructions).
+<6>Cache parity protection disabled
+<4>cause = d0808050, status = 11000000
+<4>PID hash table entries: 128 (order: 7, 512 bytes)
+<4>calculating r4koff... 0015f900(1440000)
+<4>CPU frequency 360.00 MHz
+<4>Using 180.000 MHz high precision timer.
+<4>Dentry cache hash table entries: 4096 (order: 2, 16384 bytes)
+<4>Inode-cache hash table entries: 2048 (order: 1, 8192 bytes)
+<6>Memory: 28852k/32768k available (2960k kernel code, 3916k reserved, 435k data, 120k init, 0k highmem)
+<7>Calibrating delay loop... 239.61 BogoMIPS (lpj=479232)
+<4>Mount-cache hash table entries: 512
+<6>NET: Registered protocol family 16
+<5>SCSI subsystem initialized
+<6>usbcore: registered new interface driver usbfs
+<6>usbcore: registered new interface driver hub
+<6>usbcore: registered new device driver usb
+<6>NET: Registered protocol family 2
+<6>Time: MIPS clocksource has been installed.
+<4>IP route cache hash table entries: 1024 (order: 0, 4096 bytes)
+<4>TCP established hash table entries: 1024 (order: 1, 8192 bytes)
+<4>TCP bind hash table entries: 1024 (order: 0, 4096 bytes)
+<6>TCP: Hash tables configured (established 1024 bind 1024)
+<6>TCP reno registered
+<4>deice id : ef 40 17 0 0 (40170000)
+<4>W25Q64BV(ef 40170000) (8192 Kbytes)
+<4>mtd .name = raspi, .size = 0x00800000 (8M) .erasesize = 0x00010000 (64K) .numeraseregions = 0
+<5>Creating 6 MTD partitions on "raspi":
+<5>0x00000000-0x00020000 : "Bootloader"
+<5>0x00020000-0x00030000 : "Config"
+<5>0x00030000-0x00040000 : "Factory"
+<5>0x00040000-0x00170000 : "Kernel"
+<5>0x00170000-0x00300000 : "RootFS"
+<5>0x00300000-0x00800000 : "user"
+<4>Load Ralink DFS Timer Module
+<4>RT3xxx EHCI/OHCI init.
+<6>squashfs: version 3.2-r2 (2007/01/15) Phillip Lougher
+<4>squashfs: LZMA suppport for slax.org by jro
+<6>JFFS2 version 2.2. (NAND) (C) 2001-2006 Red Hat, Inc.
+<6>io scheduler noop registered (default)
+<4>Enable Ralink GDMA Controller Module 
+<4>GDMA IP Version=2
+<6>HDLC line discipline: version $Revision: 1.1.1.1 $, maxframe=4096
+<6>N_HDLC line discipline registered.
+<6>Serial: 8250/16550 driver $Revision: 1.7 $ 2 ports, IRQ sharing disabled
+<6>serial8250: ttyS0 at I/O 0xb0000500 (irq = 37) is a 16550A
+<6>serial8250: ttyS1 at I/O 0xb0000c00 (irq = 12) is a 16550A
+<6>loop: loaded (max 8 devices)
+<4>Ralink APSoC Ethernet Driver Initilization. v2.1  256 rx/tx descriptors allocated, mtu = 1500!
+<4>NAPI enable, weight = 32, Tx Ring = 256, Rx Ring = 256
+<4>MAC_ADRH -- : 0x000054cd
+<4>MAC_ADRL -- : 0xee04a55f
+<1>PROC INIT OK!
+<6>PPP generic driver version 2.4.2
+<6>PPP BSD Compression module registered
+<6>NET: Registered protocol family 24
+<6>PPPoL2TP kernel driver, V0.17
+<6>PPTP driver version 0.8.1
+<6>tun: Universal TUN/TAP device driver, 1.6
+<6>tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+<6>Linux video capture interface: v2.00
+<6>block2mtd: version $Revision: 1.1.1.1 $
+<5>usbmon: debugfs is not available
+<6>rt3xxx-ehci rt3xxx-ehci: Ralink EHCI Host Controller
+<6>rt3xxx-ehci rt3xxx-ehci: new USB bus registered, assigned bus number 1
+<6>rt3xxx-ehci rt3xxx-ehci: irq 18, io mem 0x101c0000
+<6>rt3xxx-ehci rt3xxx-ehci: USB 0.0 started, EHCI 1.00, driver 10 Dec 2004
+<6>usb usb1: configuration #1 chosen from 1 choice
+<6>hub 1-0:1.0: USB hub found
+<6>hub 1-0:1.0: 1 port detected
+<7>ohci_hcd: 2006 August 04 USB 1.1 'Open' Host Controller (OHCI) Driver
+<6>rt3xxx-ohci rt3xxx-ohci: RT3xxx OHCI Controller
+<6>rt3xxx-ohci rt3xxx-ohci: new USB bus registered, assigned bus number 2
+<6>rt3xxx-ohci rt3xxx-ohci: irq 18, io mem 0x101c1000
+<6>usb usb2: configuration #1 chosen from 1 choice
+<6>hub 2-0:1.0: USB hub found
+<6>hub 2-0:1.0: 1 port detected
+<6>Initializing USB Mass Storage driver...
+<6>usb 1-1: new high speed USB device using rt3xxx-ehci and address 2
+<6>usb 1-1: configuration #1 chosen from 1 choice
+<6>usbcore: registered new interface driver usb-storage
+<6>USB Mass Storage support registered.
+<6>usbcore: registered new interface driver cytherm
+<6>drivers/usb/misc/cytherm.c: v1.0:Cypress USB Thermometer driver
+<4>nf_conntrack version 0.5.0 (256 buckets, 2048 max)
+<4>ip_tables: (C) 2000-2006 Netfilter Core Team, Type=Restricted Cone
+<6>TCP cubic registered
+<6>NET: Registered protocol family 1
+<6>NET: Registered protocol family 10
+<6>NET: Registered protocol family 17
+<6>802.1Q VLAN Support v1.8 Ben Greear <greearb@candelatech.com>
+<6>All bugs added by David S. Miller <davem@redhat.com>
+<4>VFS: Mounted root (squashfs filesystem) readonly.
+<6>Freeing unused kernel memory: 120k freed
+<4>Algorithmics/MIPS FPU Emulator v1.5
+<4>rt2860v2_sta: module license 'unspecified' taints kernel.
+<4>
+<4>
+<4>=== pAd = c0092000, size = 534784 ===
+<4>
+<4><-- RTMPAllocAdapterBlock, Status=0
+<4>
+<4>phy_tx_ring = 0x01f73000, tx_ring = 0xa1f73000
+<4>
+<4>phy_rx_ring0 = 0x01f50000, rx_ring0 = 0xa1f50000
+<4>MAC_ADRH -- : 0x000054cd
+<4>MAC_ADRL -- : 0xee04a55f
+<4>RT305x_ESW: Link Status Changed
+<4>RX DESC a1eb4000  size = 2048
+<4><-- RTMPAllocTxRxRingMemory, Status=0
+<4>Key1Str is Invalid key length(0) or Type(0)
+<4>Key3Str is Invalid key length(0) or Type(0)
+<4>Key4Str is Invalid key length(0) or Type(0)
+<4>1. Phy Mode = 9
+<4>2. Phy Mode = 9
+<4>3. Phy Mode = 9
+<4>MCS Set = ff 00 00 00 01
+<4><==== rt28xx_init, Status=0
+<4>0x1300 = 00064300
+<4>i2cdrv_major = 218
+<4>i2s init
+<4>gpiomode..........:4042d8
+<4>Ralink gpio driver initialized
+<6>Ralink APSoC Hardware Watchdog Timer
+<4>RT305x_ESW: Link Status Changed
+<6>Started WatchDog Timer.
+<6>ipcamn uses obsolete (PF_INET,SOCK_PACKET)
+<7>ra0: no IPv6 routers present
+<4>Found format MJPEG.
+<4>- 640x480 (30.0 fps)
+<4>- 352x288 (30.0 fps)
+<4>- 320x240 (30.0 fps)
+<4>- 176x144 (30.0 fps)
+<4>- 160x120 (30.0 fps)
+<4>Found format YUV 4:2:2 (YUYV).
+<4>- 640x480 (30.0 fps)
+<4>- 352x288 (30.0 fps)
+<4>- 320x240 (30.0 fps)
+<4>- 176x144 (30.0 fps)
+<4>- 160x120 (30.0 fps)
+<6>uvcvideo: Found UVC 1.00 device USB 2.0 PC Camera (058f:3861)
+<4>uvcvideo: UVC non compliance - GET_DEF(PROBE) not supported. Enabling workaround.
+<6>input: USB 2.0 PC Camera as /class/input/input0
+<6>usbcore: registered new interface driver uvcvideo
+<6>USB Video Class driver (SVN r209)
