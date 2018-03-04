@@ -1,5 +1,6 @@
-# ELRO-CIP-39032KL
-IP-Camera device dumps
+# ELRO-CIP-39032KL IP-Camera device dumps
+
+Defualt login telnet login [root:123456] http login [admin:]
 
 [Vendor manuals, software](https://drive.google.com/file/d/1MJy82aT7aFVucKvwRhahrEcRmY4LAfqH/view?usp=sharing)
 
@@ -88,4 +89,12 @@ for f in $1*; do
 	test -d "${f}" && $0 "${f}/"
 	test -f "${f}" && tftp -l ${f} -p ${TFTP_SERVER}
 done
+```
+
+### Endpoint without auth
+
+```
+curl http://${CAMERA_IP}/get_realip.cgi
+curl http://${CAMERA_IP}/get_status.cgi
+curl http://${CAMERA_IP}/get_tutk_account.cgi
 ```
