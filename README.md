@@ -4,6 +4,24 @@ Defualt telnet login [root:123456] http login [admin:]
 
 [Vendor manuals, software](https://drive.google.com/file/d/1MJy82aT7aFVucKvwRhahrEcRmY4LAfqH/view?usp=sharing)
 
+### Cross-compiling
+
+```
+./configure.sh && . ./configure.sh
+
+echo '#include <stdio.h>
+
+int main (void)
+{
+  printf ("Hello, world!\n");
+  return 0;
+}' > helloworld.c
+
+gcc-rt288x --static helloworld.c -o helloworld
+
+## get binary to device via tftp
+```
+
 ### Device info
 
 #### /proc/mtd 
@@ -66,6 +84,13 @@ VmallocChunk:  1037452 kB
 Linux version 2.6.21 (root@test) (gcc version 3.4.2) #136 Mon May 20 11:39:34 CST 2013
 ```
 
+### uBoot
+
+```
+U-Boot version string, "U-Boot 1.1.3 (Nov 18 2012 - 20:35:15)"
+
+```
+
 ### Mount jffs2 partition
 
 ```
@@ -98,3 +123,7 @@ curl http://${CAMERA_IP}/get_realip.cgi
 curl http://${CAMERA_IP}/get_status.cgi
 curl http://${CAMERA_IP}/get_tutk_account.cgi
 ```
+
+### TODO
+
+Start dropbear instance like so [FritzBox](http://www.fritzmod.net/de/modification/ssh-sftp/installation/)
