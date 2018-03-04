@@ -1,6 +1,6 @@
 # ELRO-CIP-39032KL IP-Camera device dumps
 
-Defualt login telnet login [root:123456] http login [admin:]
+Defualt telnet login [root:123456] http login [admin:]
 
 [Vendor manuals, software](https://drive.google.com/file/d/1MJy82aT7aFVucKvwRhahrEcRmY4LAfqH/view?usp=sharing)
 
